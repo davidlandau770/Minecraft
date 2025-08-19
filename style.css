@@ -1,0 +1,10 @@
+body {
+    font-family: 'minecraft', sans-serif;
+}
+
+#grid {
+    width: 4800px;
+    height: 1440px;
+    grid-template-columns: repeat("auto-fill", 3rem);
+    grid-template-columns: repeat("auto-fill", 3rem);
+}
