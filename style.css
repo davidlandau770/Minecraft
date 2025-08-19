@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 
-body {
+#body {
     font-family: 'minecraft', sans-serif;
+    background-color: #87ceeb;
 }
 
 #grid {
@@ -16,8 +17,8 @@ body {
     grid-template-rows: repeat(auto-fill, 3rem);
 }
 
-.square :hover{
-    border: 1px solid black;
+.square:hover {
+    border: .5px solid black;
 }
 
 /* ---Menu Styles--- */
@@ -55,4 +56,14 @@ button {
     font-family: inherit;
     box-shadow: 0px 3px 1px #707070;
     margin: 0.5rem 0;
+}
+
+.row {
+    white-space: nowrap;
+    height: 3rem;
+}
+
+.img {
+    width: 99%;
+    height: 99%;
 }
