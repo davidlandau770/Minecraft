@@ -1,10 +1,139 @@
+@font-face {
+    font-family: 'minecraft';
+    src: url(./fonts/MinecraftRegular-Bmg3.otf) format('opentype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #001E3F;
+}
+
 body {
     font-family: 'minecraft', sans-serif;
 }
 
-#grid {
-    width: 4800px;
-    height: 1440px;
-    grid-template-columns: repeat("auto-fill", 3rem);
-    grid-template-columns: repeat("auto-fill", 3rem);
+.game-container {
+    background-color: #87CEEB;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: none;
+}
+
+.row {
+    white-space: nowrap;
+    height: 3rem;
+}
+
+.cell {
+    width: 3rem;
+    height: 3rem;
+    background-color: #87CEEB;
+    display: inline-block;
+}
+
+.cell:hover {
+    border: 1px black solid;
+}
+
+#inventory {
+    position: fixed;
+    top: 4rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    background-position: center center;
+    background-size: cover;
+}
+
+.inventory-slot {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    margin: 2px;
+    padding: 0.2rem;
+}
+
+.item {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.quantity {
+    transform: translate(1rem, 1rem);
+    font-size: 1.5rem;
+}
+
+#menu {
+    width: 100vw;
+    height: 100vh;
+    background: url(./imgs/menu-background.jpg) center center/cover;
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+#menu img {
+    width: 50%;
+    margin-bottom: 2rem;
+}
+
+button {
+    background-color: #A0A0A0;
+    /* Light wooden brown color */
+    border: 2px solid #707070;
+    /* Dark wooden brown color */
+    border-radius: 4px;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0px 3px 1px #707070;
+    margin: 0.5rem 0;
+}
+
+#menu button {
+    width: 30%;
+    font-size: 2rem;
+}
+
+#side-menu {
+    position: fixed;
+    margin-left: 1rem;
+    width: fit-content;
+    flex-direction: column;
+}
+
+#side-menu button {
+    font-size: 1rem;
+}
+
+@media(max-width : 500px) {
+    #menu button {
+        font-size: 32px;
+        width: 90%;
+    }
+
+    #menu img {
+        width: 95%;
+        margin-bottom: 10px;
+    }
 }
