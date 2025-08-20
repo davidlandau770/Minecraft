@@ -1,10 +1,11 @@
 const grid = document.getElementById("grid");
 
 const conBlocks = {
-    hoe: 0,
-    ax: 0,
-    spade: 0,
-    scissors: 0
+    stone: 0,
+    dirt: 0,
+    grass: 0,
+    oakLog: 0,
+    oakLeaves: 0
 };
 
 function addClassAndImg(i, square, type) {
@@ -49,13 +50,19 @@ for (let i of square) {
         if (tool === "toolsHoe" && eventBlock === "stone") {
             removeBlock(e.target);
         }
-        console.log(eventBlock);
-        console.log(tool);
-
+        else if (tool === "toolsSpade" && eventBlock === "dirt"|| eventBlock === "grass"){
+            removeBlock(e.target);
+        }
+        else if (tool === "toolsAx" && eventBlock === "oak-log"){
+            removeBlock(e.target);
+        }
+        else if (tool === "toolsScissors" && eventBlock === "oak-leaves"){
+            removeBlock(e.target);
+        }
     })
 }
 function removeBlock(block) {
-    imgId.className = "removed";
+    block.className = "removed";
 }
 
 // --- Trees ---
