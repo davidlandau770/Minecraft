@@ -61,7 +61,7 @@ function removeBlock(block) {
 // --- Trees ---
 function generateTrees() {
     const grassBlocks = [...document.querySelectorAll(".grass")];
-    const numTrees = Math.max(1, Math.floor(grassBlocks.length / 20));
+    const numTrees = Math.max(4, Math.floor(grassBlocks.length / 20));
     for (const _ of Array(numTrees)) {
         let ground;
         // Pick a grass block without nearby trees (5-block spacing)
