@@ -56,3 +56,14 @@ body {
 .removed{
     display: none;
 }
+
+.blocks{
+    display: inline-block;
+    position: fixed;
+    top: 280px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 48px;
+}

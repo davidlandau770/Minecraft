@@ -1,6 +1,6 @@
 const grid = document.getElementById("grid");
 
-const conBlocks = {
+const countBlocks = {
     stone: 0,
     dirt: 0,
     grass: 0,
@@ -49,15 +49,19 @@ for (let i of square) {
         eventBlock = e.target.classList[0];
         if (tool === "toolsHoe" && eventBlock === "stone") {
             removeBlock(e.target);
+            countBlocks.stone++;
         }
-        else if (tool === "toolsSpade" && eventBlock === "dirt" || tool === "toolsSpade" && eventBlock === "grass"){
+        else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
             removeBlock(e.target);
+            countBlocks.dirt++;
         }
         else if (tool === "toolsAx" && eventBlock === "oak-log"){
             removeBlock(e.target);
+            countBlocks.oakLog++;
         }
         else if (tool === "toolsScissors" && eventBlock === "oak-leaves"){
             removeBlock(e.target);
+            countBlocks.oakLeaves++;
         }
     })
 }
