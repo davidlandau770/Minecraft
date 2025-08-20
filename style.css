@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-#body {
+body {
     font-family: 'minecraft', sans-serif;
     background-color: #87ceeb;
 }
