@@ -7,47 +7,55 @@ const conBlocks = {
     scissors: 0
 };
 
-function generateTheWorld() {
+function addClassAndImg(i, square, type) {
+    square.classList.add(type);
+    const img = document.createElement("img");
+    img.setAttribute("src", `imgs/${type}.webp`);
+    img.id = "img-" + i;
+    img.classList.add(type);
+    img.classList.add("img");
+    square.appendChild(img);
+}
+
+function initialSetup() {
     grid.innerText = "";
     for (let i = 0; i < 3000; i++) {
         const square = document.createElement("div");
         square.classList.add("square");
-        square.id = "row-" + i;
-
-        if (i < 100 * 10) {
-            square.classList.add("Heaven"); // Sky
-        }
-        else if (i < 100 * 11) {
-            square.classList.add("grass"); // Grass layer
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/grass.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 15) {
-            square.classList.add("dirt"); // Dirt layer
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/dirt.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 28) {
-            square.classList.add("stone"); // Stone layer
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/stone.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 30) {
-            square.classList.add("bedrock"); // Bedrock layer
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/bedrock.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
+        square.id = "square-" + i;
+        if (i < 100 * 10) square.classList.add("Heaven");
+        else if (i < 100 * 11) addClassAndImg(i, square, "grass");
+        else if (i < 100 * 15) addClassAndImg(i, square, "dirt");
+        else if (i < 100 * 28) addClassAndImg(i, square, "stone");
+        else if (i < 100 * 30) addClassAndImg(i, square, "bedrock");
         grid.appendChild(square);
     }
     generateTrees();
+}
+
+initialSetup()
+
+let tool = ""
+const tools = document.getElementsByClassName("tools")[0];
+tools.addEventListener("click", (e) => {
+    tool = e.target.id;
+})
+
+const square = document.getElementsByClassName("square");
+let eventBlock = "";
+for (let i of square) {
+    i.addEventListener("click", (e) => {
+        eventBlock = e.target.classList[0];
+        if (tool === "toolsHoe" && eventBlock === "stone") {
+            removeBlock(e.target);
+        }
+        console.log(eventBlock);
+        console.log(tool);
+
+    })
+}
+function removeBlock(block) {
+    imgId.className = "removed";
 }
 
 // --- Trees ---
@@ -79,35 +87,23 @@ function generateOakTree(ground) {
 }
 // Set block type and image for a row
 function setRow(idx, type) {
-    const row = document.getElementById("row-" + idx);
-    if (!row || !row.classList.contains("Heaven")) return;
-    row.className = "square " + type;
-    while (row.firstChild) row.removeChild(row.firstChild);
+    const square = document.getElementById("square-" + idx);
+    if (!square || !square.classList.contains("Heaven")) return;
+    square.className = "square " + type;
+    while (square.firstChild) square.removeChild(square.firstChild);
     const img = document.createElement("img");
     img.src = `imgs/${type}.webp`;
+    img.classList.add(type);
     img.classList.add("img");
-    row.appendChild(img);
+    square.appendChild(img);
 }
 // Mark tree + spacing to prevent nearby trees
 function markTree(ground, spacing = 5) {
     const idx = parseInt(ground.id.split("-")[1]);
     for (let offset = -spacing; offset <= spacing; offset++) {
-        const row = document.getElementById("row-" + (idx + offset));
-        if (row) row.setAttribute("hasATree", true);
+        const square = document.getElementById("square-" + (idx + offset));
+        if (square) square.setAttribute("hasATree", true);
     }
+
 }
 
-generateTheWorld();
-
-const tools = document.querySelectorAll(".tools");
-tools.addEventListener("click", (e) => {
-    const tool = e.target.id;
-    if (tool === "hoe" || tool === "ax" || tool === "spade" || tool === "scissors") {
-}
-
-
-function setupToolSelection(idblock) {
-        if (condition) {
-            
-        }
-}
