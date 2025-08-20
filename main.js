@@ -45,19 +45,22 @@ function generateTheWorld() {
             img.classList.add("img");
             square.appendChild(img);
         }
-
         grid.appendChild(square);
     }
     generateTrees();
 }
 
 // --- Trees ---
-// Generate all trees on grass
 function generateTrees() {
-    const grassBlocks = document.querySelectorAll(".grass");
+    const grassBlocks = [...document.querySelectorAll(".grass")];
     const numTrees = Math.max(1, Math.floor(grassBlocks.length / 20));
     for (const _ of Array(numTrees)) {
-        const ground = grassBlocks[Math.floor(Math.random() * grassBlocks.length)];
+        let ground;
+        // Pick a grass block without nearby trees (5-block spacing)
+        do {
+            ground = grassBlocks[Math.floor(Math.random() * grassBlocks.length)];
+        } while (ground.hasAttribute("hasATree"));
+        markTree(ground, 5); // Mark tree + spacing
         generateOakTree(ground);
     }
 }
@@ -66,6 +69,7 @@ function generateOakTree(ground) {
     let idx = parseInt(ground.id.split("-")[1]) - 100;
     const height = 4 + Math.floor(Math.random() * 3); // Trunk height 4-6
     for (let i = 0; i < height; i++, idx -= 100) setRow(idx, "oak-log");
+
     const leafPattern = [3, 3, 2, 2, 1]; // Leaf width per layer
     leafPattern.forEach((width, i) => {
         for (let x = -width; x <= width; x++) {
@@ -78,7 +82,19 @@ function setRow(idx, type) {
     const row = document.getElementById("row-" + idx);
     if (!row || !row.classList.contains("Heaven")) return;
     row.className = "square " + type;
-    row.innerHTML = `<img src="imgs/${type}.webp" class="img">`;
+    while (row.firstChild) row.removeChild(row.firstChild);
+    const img = document.createElement("img");
+    img.src = `imgs/${type}.webp`;
+    img.classList.add("img");
+    row.appendChild(img);
+}
+// Mark tree + spacing to prevent nearby trees
+function markTree(ground, spacing = 5) {
+    const idx = parseInt(ground.id.split("-")[1]);
+    for (let offset = -spacing; offset <= spacing; offset++) {
+        const row = document.getElementById("row-" + (idx + offset));
+        if (row) row.setAttribute("hasATree", true);
+    }
 }
 
 generateTheWorld();
