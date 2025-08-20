@@ -1,18 +1,19 @@
 const grid = document.getElementById("grid");
 
-const tools = {
+const conBlocks = {
     hoe: 0,
     ax: 0,
     spade: 0,
     scissors: 0
 };
 
-function addClassAndImg(square, type) {
+function addClassAndImg(i, square, type) {
     square.classList.add(type);
     const img = document.createElement("img");
     img.setAttribute("src", `imgs/${type}.webp`);
-    img.classList.add("img");
+    img.id = "img-" + i;
     img.classList.add(type);
+    img.classList.add("img");
     square.appendChild(img);
 }
 
@@ -23,10 +24,10 @@ function initialSetup() {
         square.classList.add("square");
         square.id = "square-" + i;
         if (i < 100 * 10) square.classList.add("Heaven");
-        else if (i < 100 * 11) addClassAndImg(square, "grass");
-        else if (i < 100 * 15) addClassAndImg(square, "dirt");
-        else if (i < 100 * 28) addClassAndImg(square, "stone");
-        else if (i < 100 * 30) addClassAndImg(square, "bedrock");
+        else if (i < 100 * 11) addClassAndImg(i, square, "grass");
+        else if (i < 100 * 15) addClassAndImg(i, square, "dirt");
+        else if (i < 100 * 28) addClassAndImg(i, square, "stone");
+        else if (i < 100 * 30) addClassAndImg(i, square, "bedrock");
         grid.appendChild(square);
     }
     generateTrees();
@@ -34,15 +35,27 @@ function initialSetup() {
 
 initialSetup()
 
+let tool = ""
+const tools = document.getElementsByClassName("tools")[0];
+tools.addEventListener("click", (e) => {
+    tool = e.target.id;
+})
+
 const square = document.getElementsByClassName("square");
+let eventBlock = "";
 for (let i of square) {
     i.addEventListener("click", (e) => {
-        if (e.target.classList[1] === "grass") {
-            const id = document.getElementById(e.target.id)
-            console.log(id);
+        eventBlock = e.target.classList[0];
+        if (tool === "toolsHoe" && eventBlock === "stone") {
+            removeBlock(e.target);
         }
-        // console.log(e.target.classList[1]);
+        console.log(eventBlock);
+        console.log(tool);
+
     })
+}
+function removeBlock(block) {
+    imgId.className = "removed";
 }
 
 // --- Trees ---
@@ -80,6 +93,7 @@ function setRow(idx, type) {
     while (square.firstChild) square.removeChild(square.firstChild);
     const img = document.createElement("img");
     img.src = `imgs/${type}.webp`;
+    img.classList.add(type);
     img.classList.add("img");
     square.appendChild(img);
 }
@@ -90,4 +104,6 @@ function markTree(ground, spacing = 5) {
         const square = document.getElementById("square-" + (idx + offset));
         if (square) square.setAttribute("hasATree", true);
     }
+
 }
+
