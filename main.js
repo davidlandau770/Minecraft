@@ -1,6 +1,6 @@
 const grid = document.getElementById("grid");
 
-const conBlocks = {
+const countBlocks = {
     stone: 0,
     dirt: 0,
     grass: 0,
