@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'minecraft';
+    src: url(./fonts/MinecraftRegular-Bmg3.otf) format('opentype');
+}
+
+
 * {
     margin: 0;
     padding: 0;
