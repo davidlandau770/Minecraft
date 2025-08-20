@@ -113,24 +113,3 @@ function markTree(ground, spacing = 5) {
     }
 }
 
-// Hebrew note: קליק קצר על תמונה -> מחליף את סמן העכבר לתמונה הזו
-// קליק נוסף -> מחזיר לסמן רגיל
-
-let currentCursor = null;
-
-document.querySelectorAll('.icon').forEach(img => {
-    img.addEventListener('click', () => {
-        // אם כבר אותה תמונה נבחרה -> מחזירים לסמן רגיל
-        if (currentCursor === img.getAttribute("src")) {
-            document.body.style.cursor = 'default';
-            currentCursor = null;
-        } else {
-            // קובעים סמן חדש מהתמונה שנלחצה
-            // "0 0" = נקודת העיגון (אפשר להזיז אם רוצים למרכז)
-            document.body.style.cursor = `url(${img.getAttribute("src")}) x y, auto`;
-            console.log(img.getAttribute("src"));
-
-            currentCursor = img.getAttribute("src");
-        }
-    });
-});
