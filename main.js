@@ -84,8 +84,9 @@ const square = document.getElementsByClassName("square");
 for (let i of square) {
     i.addEventListener("click", (e) => {
         if (e.target.classList[1] = "grass") {
-            // const id = 
+            const id = document.getElementById(e.target.id)
+            console.log(id);
         }
-        console.log(e.target.classList[1]);
+        // console.log(e.target.classList[1]);
     })
 }

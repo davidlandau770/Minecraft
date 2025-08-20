@@ -32,11 +32,6 @@ body {
     height: 100%;
 }
 
-.img {
-    width: 99%;
-    height: 99%;
-}
-
 .tools {
     display: inline-block;
     position: fixed;
