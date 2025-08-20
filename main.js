@@ -50,7 +50,7 @@ for (let i of square) {
         if (tool === "toolsHoe" && eventBlock === "stone") {
             removeBlock(e.target);
         }
-        else if (tool === "toolsSpade" && eventBlock === "dirt"|| eventBlock === "grass"){
+        else if (tool === "toolsSpade" && eventBlock === "dirt" || tool === "toolsSpade" && eventBlock === "grass"){
             removeBlock(e.target);
         }
         else if (tool === "toolsAx" && eventBlock === "oak-log"){
