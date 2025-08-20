@@ -7,44 +7,37 @@ const tools = {
     scissors: 0
 }
 
-function generateTheWorld() {
+function addClassAndImg(square, type) {
+    square.classList.add(type);
+    const img = document.createElement("img");
+    img.setAttribute("src", `imgs/${type}.webp`);
+    img.classList.add("img");
+    img.classList.add(type);
+    square.appendChild(img);
+}
+
+function initialSetup() {
     grid.innerText = "";
     for (let i = 0; i < 3000; i++) {
         const square = document.createElement("div");
         square.classList.add("square");
-        square.id = "row-" + i;
-        if (i < 100 * 10) {
-            square.classList.add("Heaven");            
-        }
-        else if (i < 100 * 11) {
-            square.classList.add("grass");
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/grass.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 15) {
-            square.classList.add("dirt");
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/dirt.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 28) {
-            square.classList.add("stone");
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/stone.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
-        else if (i < 100 * 30) {
-            square.classList.add("bedrock")
-            const img = document.createElement("img");
-            img.setAttribute("src", "imgs/bedrock.webp");
-            img.classList.add("img");
-            square.appendChild(img);
-        }
+        square.id = "square-" + i;
+        if (i < 100 * 10) square.classList.add("Heaven");
+        else if (i < 100 * 11) addClassAndImg(square, "grass");
+        else if (i < 100 * 15) addClassAndImg(square, "dirt");
+        else if (i < 100 * 28) addClassAndImg(square, "stone");
+        else if (i < 100 * 30) addClassAndImg(square, "bedrock");
         grid.appendChild(square);
     }
 }
-generateTheWorld()
+initialSetup()
+
+const square = document.getElementsByClassName("square");
+for (let i of square) {
+    i.addEventListener("click", (e) => {
+        if (e.target.classList[1] = "grass") {
+            // const id = 
+        }
+        console.log(e.target.classList[1]);
+    })
+}
