@@ -49,15 +49,19 @@ for (let i of square) {
         eventBlock = e.target.classList[0];
         if (tool === "toolsHoe" && eventBlock === "stone") {
             removeBlock(e.target);
+            conBlocks.stone++;
         }
-        else if (tool === "toolsSpade" && eventBlock === "dirt"|| eventBlock === "grass"){
+        else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
             removeBlock(e.target);
+            conBlocks.dirt++;
         }
         else if (tool === "toolsAx" && eventBlock === "oak-log"){
             removeBlock(e.target);
+            conBlocks.oakLog++;
         }
         else if (tool === "toolsScissors" && eventBlock === "oak-leaves"){
             removeBlock(e.target);
+            conBlocks.oakLeaves++;
         }
     })
 }
