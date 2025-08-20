@@ -32,6 +32,19 @@ function initialSetup() {
     generateTrees();
 }
 
+initialSetup()
+
+const square = document.getElementsByClassName("square");
+for (let i of square) {
+    i.addEventListener("click", (e) => {
+        if (e.target.classList[1] === "grass") {
+            const id = document.getElementById(e.target.id)
+            console.log(id);
+        }
+        // console.log(e.target.classList[1]);
+    })
+}
+
 // --- Trees ---
 function generateTrees() {
     const grassBlocks = [...document.querySelectorAll(".grass")];
@@ -61,32 +74,20 @@ function generateOakTree(ground) {
 }
 // Set block type and image for a row
 function setRow(idx, type) {
-    const row = document.getElementById("row-" + idx);
-    if (!row || !row.classList.contains("Heaven")) return;
-    row.className = "square " + type;
-    while (row.firstChild) row.removeChild(row.firstChild);
+    const square = document.getElementById("square-" + idx);
+    if (!square || !square.classList.contains("Heaven")) return;
+    square.className = "square " + type;
+    while (square.firstChild) square.removeChild(square.firstChild);
     const img = document.createElement("img");
     img.src = `imgs/${type}.webp`;
     img.classList.add("img");
-    row.appendChild(img);
+    square.appendChild(img);
 }
 // Mark tree + spacing to prevent nearby trees
 function markTree(ground, spacing = 5) {
     const idx = parseInt(ground.id.split("-")[1]);
     for (let offset = -spacing; offset <= spacing; offset++) {
-        const row = document.getElementById("row-" + (idx + offset));
-        if (row) row.setAttribute("hasATree", true);
+        const square = document.getElementById("square-" + (idx + offset));
+        if (square) square.setAttribute("hasATree", true);
     }
-}
-initialSetup()
-
-const square = document.getElementsByClassName("square");
-for (let i of square) {
-    i.addEventListener("click", (e) => {
-        if (e.target.classList[1] = "grass") {
-            const id = document.getElementById(e.target.id)
-            console.log(id);
-        }
-        // console.log(e.target.classList[1]);
-    })
 }
