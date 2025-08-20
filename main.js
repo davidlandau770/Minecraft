@@ -1,6 +1,6 @@
 const grid = document.getElementById("grid");
 
-const conBlocks = {
+const countBlocks = {
     stone: 0,
     dirt: 0,
     grass: 0,
@@ -49,19 +49,19 @@ for (let i of square) {
         eventBlock = e.target.classList[0];
         if (tool === "toolsHoe" && eventBlock === "stone") {
             removeBlock(e.target);
-            conBlocks.stone++;
+            countBlocks.stone++;
         }
         else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
             removeBlock(e.target);
-            conBlocks.dirt++;
+            countBlocks.dirt++;
         }
         else if (tool === "toolsAx" && eventBlock === "oak-log"){
             removeBlock(e.target);
-            conBlocks.oakLog++;
+            countBlocks.oakLog++;
         }
         else if (tool === "toolsScissors" && eventBlock === "oak-leaves"){
             removeBlock(e.target);
-            conBlocks.oakLeaves++;
+            countBlocks.oakLeaves++;
         }
     })
 }
@@ -69,10 +69,26 @@ function removeBlock(block) {
     block.className = "removed";
 }
 
+
+// עכבר בלחיצה על כלי
+let currentCursor = null;
+document.querySelectorAll('.icon').forEach(img => {
+  img.addEventListener('click', () => {
+    const src = img.getAttribute("src");
+    if (currentCursor === src) {
+      document.body.style.cursor = "auto";
+      currentCursor = null;
+    } else {
+      document.body.style.cursor = `url(${src}) 16 16, auto`;
+      currentCursor = src;
+    }
+  });
+});
+
 // --- Trees ---
 function generateTrees() {
     const grassBlocks = [...document.querySelectorAll(".grass")];
-    const numTrees = Math.max(1, Math.floor(grassBlocks.length / 20));
+    const numTrees = Math.max(4, Math.floor(grassBlocks.length / 20));
     for (const _ of Array(numTrees)) {
         let ground;
         // Pick a grass block without nearby trees (5-block spacing)
@@ -115,6 +131,5 @@ function markTree(ground, spacing = 5) {
         const square = document.getElementById("square-" + (idx + offset));
         if (square) square.setAttribute("hasATree", true);
     }
-
 }
 
