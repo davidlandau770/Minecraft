@@ -48,35 +48,40 @@ for (let i of square) {
     i.addEventListener("click", (e) => {
         eventBlock = e.target.classList[0];
         if (tool === "toolsHoe" && eventBlock === "stone") {
-            removeBlock(e.target, "stone");
+            removeBlock(e.target, eventBlock);
         }
         else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
-            removeBlock(e.target, "dirt");
-            // countBlocks.dirt++;
+            removeBlock(e.target, eventBlock);
 
         }
         else if (tool === "toolsAx" && eventBlock === "oak-log") {
-            removeBlock(e.target, "oak-log");
-            // countBlocks.oakLog++;
+            removeBlock(e.target, eventBlock);
         }
         else if (tool === "toolsScissors" && eventBlock === "oak-leaves") {
-            removeBlock(e.target, "oak-leaves");
-            // countBlocks.oakLeaves++;
+            removeBlock(e.target, eventBlock);
         }
     })
 }
+
 function removeBlock(block, type) {
     block.className = "removed";
     countBlocks[type]++;
-    const typeBlock = document.getElementById(type);    
+    const typeBlock = document.getElementById(type);
     console.log(countBlocks);
-    if (countBlocks[type] > 0) {
-        typeBlock.style.display = "inline-block";
-        console.log(typeBlock);
-    
+    blockNumbering(countBlocks[type], typeBlock)
+}
+
+function blockNumbering(typeCon, typeBlock) {
+    if (typeCon === 1) {
+        typeBlock.style.display = "flex";
+        typeBlock.style.alignItems = "end"
+        const counter = document.createElement("p")
+        counter.innerText = typeCon;
+        typeBlock.appendChild(counter)
     }
-    // console.log(countBlocks[type2]);
-    
+    else if (typeCon > 1) {
+        typeBlock.querySelector("p").innerText = typeCon;
+    }
 }
 //החלקים המסולקים מהמסך
 
@@ -89,8 +94,6 @@ const stack = document.getElementsByClassName("blocks")[0].addEventListener("cli
     const block = e.target;
     console.log(block);
 });
-
-
 
 
 // עכבר בלחיצה על כלי

@@ -53,11 +53,11 @@ body {
     height: 100%;
 }
 
-.removed{
+.removed {
     display: none;
 }
 
-.blocks{
+.blocks {
     display: none;
     position: fixed;
     top: 280px;
