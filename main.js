@@ -55,11 +55,11 @@ for (let i of square) {
             removeBlock(e.target);
             countBlocks.dirt++;
         }
-        else if (tool === "toolsAx" && eventBlock === "oak-log"){
+        else if (tool === "toolsAx" && eventBlock === "oak-log") {
             removeBlock(e.target);
             countBlocks.oakLog++;
         }
-        else if (tool === "toolsScissors" && eventBlock === "oak-leaves"){
+        else if (tool === "toolsScissors" && eventBlock === "oak-leaves") {
             removeBlock(e.target);
             countBlocks.oakLeaves++;
         }
@@ -68,68 +68,71 @@ for (let i of square) {
 function removeBlock(block) {
     block.className = "removed";
 }
+    //החלקים המסולקים מהמסך
 
+const removedBlock = document.getElementsByClassName("blocks")[0];
+     removedBlock.classList.add("removed")
 
-// עכבר בלחיצה על כלי
-let currentCursor = null;
-document.querySelectorAll('.icon').forEach(img => {
-  img.addEventListener('click', () => {
-    const src = img.getAttribute("src");
-    if (currentCursor === src) {
-      document.body.style.cursor = "auto";
-      currentCursor = null;
-    } else {
-      document.body.style.cursor = `url(${src}) 16 16, auto`;
-      currentCursor = src;
-    }
-  });
-});
-
-// --- Trees ---
-function generateTrees() {
-    const grassBlocks = [...document.querySelectorAll(".grass")];
-    const numTrees = Math.max(4, Math.floor(grassBlocks.length / 20));
-    for (const _ of Array(numTrees)) {
-        let ground;
-        // Pick a grass block without nearby trees (5-block spacing)
-        do {
-            ground = grassBlocks[Math.floor(Math.random() * grassBlocks.length)];
-        } while (ground.hasAttribute("hasATree"));
-        markTree(ground, 5); // Mark tree + spacing
-        generateOakTree(ground);
-    }
-}
-// Generate single oak tree
-function generateOakTree(ground) {
-    let idx = parseInt(ground.id.split("-")[1]) - 100;
-    const height = 4 + Math.floor(Math.random() * 3); // Trunk height 4-6
-    for (let i = 0; i < height; i++, idx -= 100) setRow(idx, "oak-log");
-
-    const leafPattern = [3, 3, 2, 2, 1]; // Leaf width per layer
-    leafPattern.forEach((width, i) => {
-        for (let x = -width; x <= width; x++) {
-            setRow(idx + 100 - i * 100 + x, "oak-leaves");
-        }
+    // עכבר בלחיצה על כלי
+    let currentCursor = null;
+    document.querySelectorAll('.icon').forEach(img => {
+        img.addEventListener('click', () => {
+            const src = img.getAttribute("src");
+            if (currentCursor === src) {
+                document.body.style.cursor = "auto";
+                currentCursor = null;
+            } else {
+                document.body.style.cursor = `url(${src}) 16 16, auto`;
+                currentCursor = src;
+            }
+        });
     });
-}
-// Set block type and image for a row
-function setRow(idx, type) {
-    const square = document.getElementById("square-" + idx);
-    if (!square || !square.classList.contains("Heaven")) return;
-    square.className = "square " + type;
-    while (square.firstChild) square.removeChild(square.firstChild);
-    const img = document.createElement("img");
-    img.src = `imgs/${type}.webp`;
-    img.classList.add(type);
-    img.classList.add("img");
-    square.appendChild(img);
-}
-// Mark tree + spacing to prevent nearby trees
-function markTree(ground, spacing = 5) {
-    const idx = parseInt(ground.id.split("-")[1]);
-    for (let offset = -spacing; offset <= spacing; offset++) {
-        const square = document.getElementById("square-" + (idx + offset));
-        if (square) square.setAttribute("hasATree", true);
+
+    // --- Trees ---
+    function generateTrees() {
+        const grassBlocks = [...document.querySelectorAll(".grass")];
+        const numTrees = Math.max(4, Math.floor(grassBlocks.length / 20));
+        for (const _ of Array(numTrees)) {
+            let ground;
+            // Pick a grass block without nearby trees (5-block spacing)
+            do {
+                ground = grassBlocks[Math.floor(Math.random() * grassBlocks.length)];
+            } while (ground.hasAttribute("hasATree"));
+            markTree(ground, 5); // Mark tree + spacing
+            generateOakTree(ground);
+        }
     }
-}
+    // Generate single oak tree
+    function generateOakTree(ground) {
+        let idx = parseInt(ground.id.split("-")[1]) - 100;
+        const height = 4 + Math.floor(Math.random() * 3); // Trunk height 4-6
+        for (let i = 0; i < height; i++, idx -= 100) setRow(idx, "oak-log");
+
+        const leafPattern = [3, 3, 2, 2, 1]; // Leaf width per layer
+        leafPattern.forEach((width, i) => {
+            for (let x = -width; x <= width; x++) {
+                setRow(idx + 100 - i * 100 + x, "oak-leaves");
+            }
+        });
+    }
+    // Set block type and image for a row
+    function setRow(idx, type) {
+        const square = document.getElementById("square-" + idx);
+        if (!square || !square.classList.contains("Heaven")) return;
+        square.className = "square " + type;
+        while (square.firstChild) square.removeChild(square.firstChild);
+        const img = document.createElement("img");
+        img.src = `imgs/${type}.webp`;
+        img.classList.add(type);
+        img.classList.add("img");
+        square.appendChild(img);
+    }
+    // Mark tree + spacing to prevent nearby trees
+    function markTree(ground, spacing = 5) {
+        const idx = parseInt(ground.id.split("-")[1]);
+        for (let offset = -spacing; offset <= spacing; offset++) {
+            const square = document.getElementById("square-" + (idx + offset));
+            if (square) square.setAttribute("hasATree", true);
+        }
+    }
 
