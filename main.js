@@ -44,6 +44,8 @@ const createButtons = () => {
     button2.innerText = "New World";
     button1.classList.add("button1");
     button2.classList.add("button2");
+    button1.setAttribute("onclick", "location.href='welcome.html'")
+    button2.setAttribute("onclick", "location.href='index.html'")
     buttons.appendChild(button1);
     buttons.appendChild(button2);
 }
