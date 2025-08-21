@@ -83,12 +83,13 @@ function blockNumbering(typeCon, typeBlock) {
         typeBlock.querySelector("p").innerText = typeCon;
     }
 }
-//החלקים המסולקים מהמסך
+//המחסנית
 
 const blocks = document.getElementsByClassName("block");
 for (const block of blocks) {
     block.classList.add("removed");
 }
+
 //הוספת מחסנית
 const stack = document.getElementsByClassName("blocks")[0].addEventListener("click", (e) => {
     const block = e.target;
