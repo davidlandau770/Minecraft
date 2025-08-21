@@ -64,7 +64,7 @@ for (let i of square) {
 }
 
 function removeBlock(block, type) {
-    block.className = "removed";
+    block.classList.add("removed");
     countBlocks[type]++;
     const typeBlock = document.getElementById(type);
     console.log(countBlocks);
@@ -73,8 +73,7 @@ function removeBlock(block, type) {
 
 function blockNumbering(typeCon, typeBlock) {
     if (typeCon === 1) {
-        typeBlock.style.display = "flex";
-        typeBlock.style.alignItems = "end"
+        typeBlock.classList.add("counter");
         const counter = document.createElement("p")
         counter.innerText = typeCon;
         typeBlock.appendChild(counter)
