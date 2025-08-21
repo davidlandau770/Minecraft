@@ -1,4 +1,5 @@
 const grid = document.getElementById("grid");
+const buttons = document.getElementById("buttons");
 
 const countBlocks = {
     "stone": 0,
@@ -35,6 +36,20 @@ function initialSetup() {
 }
 
 initialSetup()
+
+const createButtons = () => {
+    const button1 = document.createElement("button");
+    const button2 = document.createElement("button");
+    button1.innerText = "Menu";
+    button2.innerText = "New World";
+    button1.classList.add("button1");
+    button2.classList.add("button2");
+    button1.setAttribute("onclick", "location.href='welcome.html'")
+    button2.setAttribute("onclick", "location.href='index.html'")
+    buttons.appendChild(button1);
+    buttons.appendChild(button2);
+}
+createButtons();
 
 let tool = ""
 const tools = document.getElementsByClassName("tools")[0];
