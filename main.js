@@ -8,11 +8,10 @@ const countBlocks = {
     "oakLeaves": 0
 };
 
-function addClassAndImg(i, square, type) {
+function addClassAndImg(square, type) {
     square.classList.add(type);
     const img = document.createElement("img");
     img.setAttribute("src", `imgs/${type}.webp`);
-    img.id = "img-" + i;
     img.classList.add(type);
     img.classList.add("img");
     square.appendChild(img);
@@ -24,11 +23,11 @@ function initialSetup() {
         const square = document.createElement("div");
         square.classList.add("square");
         square.id = "square-" + i;
-        if (i < 100 * 10) square.classList.add("Heaven");
-        else if (i < 100 * 11) addClassAndImg(i, square, "grass");
-        else if (i < 100 * 15) addClassAndImg(i, square, "dirt");
-        else if (i < 100 * 28) addClassAndImg(i, square, "stone");
-        else if (i < 100 * 30) addClassAndImg(i, square, "bedrock");
+        if (i < 100 * 10) square.classList.add("heaven");
+        else if (i < 100 * 11) addClassAndImg(square, "grass");
+        else if (i < 100 * 15) addClassAndImg(square, "dirt");
+        else if (i < 100 * 28) addClassAndImg(square, "stone");
+        else if (i < 100 * 30) addClassAndImg(square, "bedrock");
         grid.appendChild(square);
     }
     generateTrees();
@@ -42,59 +41,87 @@ tools.addEventListener("click", (e) => {
     tool = e.target.id;
 })
 
+//המחסנית
+let block = "";
+const blocks = document.getElementsByClassName("block");
+for (const oneBlock of blocks) {
+    oneBlock.classList.add("removed");
+    oneBlock.addEventListener("click", (e) => {
+        block = oneBlock.id;
+    })
+}
+
 const square = document.getElementsByClassName("square");
 let eventBlock = "";
 for (let i of square) {
     i.addEventListener("click", (e) => {
-        eventBlock = e.target.classList[0];
-        if (tool === "toolsHoe" && eventBlock === "stone") {
-            removeBlock(e.target, eventBlock);
-        }
-        else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
-            removeBlock(e.target, eventBlock);
-
-        }
-        else if (tool === "toolsAx" && eventBlock === "oak-log") {
-            removeBlock(e.target, eventBlock);
-        }
-        else if (tool === "toolsScissors" && eventBlock === "oak-leaves") {
-            removeBlock(e.target, eventBlock);
-        }
+        removeBlocks(e);
+        pushBlocks(e);
     })
+}
+
+const removeBlocks = (e) => {
+    eventBlock = e.target.classList[0];
+    if (tool === "toolsHoe" && eventBlock === "stone") {
+        removeBlock(e.target, eventBlock);
+    }
+    else if (tool === "toolsSpade" && (eventBlock === "dirt" || eventBlock === "grass")) {
+        removeBlock(e.target, eventBlock);
+    }
+    else if (tool === "toolsAx" && eventBlock === "oak-log") {
+        removeBlock(e.target, eventBlock);
+    }
+    else if (tool === "toolsScissors" && eventBlock === "oak-leaves") {
+        removeBlock(e.target, eventBlock);
+    }
+}
+
+const pushBlocks = (e) => {
+    eventBlock = e.target;
+    if (block && countBlocks[block] > 0) {
+        if (eventBlock.classList[0] === "square") {
+            addClassAndImg(eventBlock, block)
+            countBlocks[block]--
+            minusStack(block, eventBlock)
+        }
+    }
 }
 
 function removeBlock(block, type) {
     block.classList.add("removed");
     countBlocks[type]++;
     const typeBlock = document.getElementById(type);
-    console.log(countBlocks);
-    blockNumbering(countBlocks[type], typeBlock)
+    plusStack(countBlocks[type], typeBlock)
 }
 
-function blockNumbering(typeCon, typeBlock) {
+function plusStack(typeCon, typeBlock) {
     if (typeCon === 1) {
         typeBlock.classList.add("counter");
-        const counter = document.createElement("p")
-        counter.innerText = typeCon;
-        typeBlock.appendChild(counter)
+        typeBlock.style.display = "flex";
+        if (!typeBlock.querySelector("p")) {
+            typeBlock.classList.add("counter");
+            const counter = document.createElement("p")
+            counter.innerText = typeCon;
+            typeBlock.appendChild(counter);
+        }
     }
-    else if (typeCon > 1) {
+    else if (typeCon >= 1) {
         typeBlock.querySelector("p").innerText = typeCon;
     }
+    console.log("typeCon", typeCon);
+    console.log('typeBlock', typeBlock);
+    console.log('fdsfcscd');
 }
-//המחסנית
+function minusStack(typeCon, typeBlock) {
+    const block = document.getElementById(typeCon);
+    if (countBlocks[typeCon] === 0) {
+        block.style.display = "none";
 
-const blocks = document.getElementsByClassName("block");
-for (const block of blocks) {
-    block.classList.add("removed");
+    }
+    else {
+        block.querySelector("p").innerText = countBlocks[typeCon];
+    }
 }
-
-//הוספת מחסנית
-const stack = document.getElementsByClassName("blocks")[0].addEventListener("click", (e) => {
-    const block = e.target;
-    console.log(block);
-});
-
 
 // עכבר בלחיצה על כלי
 let currentCursor = null;
@@ -141,7 +168,7 @@ function generateOakTree(ground) {
 // Set block type and image for a row
 function setRow(idx, type) {
     const square = document.getElementById("square-" + idx);
-    if (!square || !square.classList.contains("Heaven")) return;
+    if (!square || !square.classList.contains("heaven")) return;
     square.className = "square " + type;
     while (square.firstChild) square.removeChild(square.firstChild);
     const img = document.createElement("img");
