@@ -123,9 +123,8 @@ function plusStack(typeCon, typeBlock) {
     else if (typeCon >= 1) {
         typeBlock.querySelector("p").innerText = typeCon;
     }
-    console.log("typeCon", typeCon);
-    console.log('typeBlock', typeBlock);
-    console.log('fdsfcscd');
+    // console.log("typeCon", typeCon);
+    // console.log('typeBlock', typeBlock);
 }
 function minusStack(typeCon, typeBlock) {
     const block = document.getElementById(typeCon);
@@ -140,7 +139,7 @@ function minusStack(typeCon, typeBlock) {
 
 // עכבר בלחיצה על כלי
 let currentCursor = null;
-document.querySelectorAll('.icon').forEach(img => {
+document.querySelectorAll('.iconTool').forEach(img => {
     img.addEventListener('click', () => {
         const src = img.getAttribute("src");
         if (currentCursor === src) {

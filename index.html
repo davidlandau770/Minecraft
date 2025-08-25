@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
     <script>
+        localStorage.setItem("game", grid.inner)
         // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         //     window.location.href = "/welcome.html";
         // }
@@ -20,18 +21,18 @@
         <section id="grid"></section>
         <section id="buttons"></section>
         <section class="tools">
-            <div id="toolsHoe"><img id="toolsHoe" class="icon" src="imgs/diamond-pickaxe.png" alt=""></div>
-            <div id="toolsAx"><img id="toolsAx" class="icon" src="imgs/diamond-axe.png" alt=""></div>
-            <div id="toolsSpade"><img id="toolsSpade" class="icon" src="imgs/diamond-shovel.png" alt=""></div>
-            <div id="toolsScissors"><img id="toolsScissors" class="icon" src="imgs/shears.png" alt=""></div>
+            <div id="toolsHoe"><img id="toolsHoe" class="iconTool" src="imgs/diamond-pickaxe.png" alt=""></div>
+            <div id="toolsAx"><img id="toolsAx" class="iconTool" src="imgs/diamond-axe.png" alt=""></div>
+            <div id="toolsSpade"><img id="toolsSpade" class="iconTool" src="imgs/diamond-shovel.png" alt=""></div>
+            <div id="toolsScissors"><img id="toolsScissors" class="iconTool" src="imgs/shears.png" alt=""></div>
         </section>
 
         <section class="blocks">
-            <div class="block" id="grass"><img src="imgs/grass.png" alt=""></div>
-            <div class="block" id="dirt"><img src="imgs/dirt.png" alt=""></div>
-            <div class="block" id="oakLeaves"><img src="imgs/oak-leaves.png" alt=""></div>
-            <div class="block" id="stone"><img src="imgs/stone.png" alt=""></div>
-            <div class="block" id="oakLog"><img src="imgs/oak-log.png" alt=""></div>
+            <div class="block" id="grass"><img class="iconBlock" src="imgs/grass.png" alt=""></div>
+            <div class="block" id="dirt"><img class="iconBlock" src="imgs/dirt.png" alt=""></div>
+            <div class="block" id="oakLeaves"><img class="iconBlock" src="imgs/oak-leaves.png" alt=""></div>
+            <div class="block" id="stone"><img class="iconBlock" src="imgs/stone.png" alt=""></div>
+            <div class="block" id="oakLog"><img class="iconBlock" src="imgs/oak-log.png" alt=""></div>
         </section>
     </main>
 </body>
